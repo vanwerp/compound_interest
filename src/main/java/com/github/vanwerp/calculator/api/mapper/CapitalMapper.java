@@ -1,8 +1,10 @@
 package com.github.vanwerp.calculator.api.mapper;
 
+import com.github.vanwerp.calculator.api.resources.CapitalRecordResource;
 import com.github.vanwerp.calculator.api.resources.CapitalResource;
 import com.github.vanwerp.calculator.api.resources.YearCapitalResource;
 import com.github.vanwerp.calculator.core.models.Capital;
+import com.github.vanwerp.calculator.core.models.CapitalRecord;
 import com.github.vanwerp.calculator.core.models.YearCapital;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -19,5 +21,7 @@ public interface CapitalMapper {
     List<YearCapitalResource> toResource(List<YearCapital> yearCapitalList);
 
     YearCapitalResource toResource(YearCapital yearCapital);
+
+    List<CapitalRecordResource> toRecordResource(List<CapitalRecord> records);
 
 }

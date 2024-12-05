@@ -20,6 +20,11 @@ public class CompoundInterestServiceImpl implements CompoundInterestService{
     CalculationRecordRepository calculationRecordRepository;
 
     @Override
+    public List<CapitalRecord> getAllCapitalRecord(){
+        return calculationRecordRepository.getAllCapitalRecord();
+    }
+
+    @Override
     public Capital getCompoundInterest(Integer years, BigDecimal initialCapital, BigDecimal revenue,
                                        CompoundingPeriod compoundingPeriod){
 

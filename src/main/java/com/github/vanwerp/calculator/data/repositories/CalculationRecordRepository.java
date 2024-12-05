@@ -8,6 +8,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
+import java.util.List;
+
 
 @ApplicationScoped
 public class CalculationRecordRepository implements PanacheRepository<CapitalRecordEntity> {
@@ -20,6 +22,11 @@ public class CalculationRecordRepository implements PanacheRepository<CapitalRec
         CapitalRecordEntity entity = mapper.toEntity(capitalRecord);
         persist(entity);
         return mapper.toRecord(entity);
+    }
+
+    @Transactional
+    public List<CapitalRecord> getAllCapitalRecord(){
+        return mapper.toRecordList(listAll());
     }
 
 }
