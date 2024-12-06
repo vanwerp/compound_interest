@@ -37,8 +37,9 @@ public class CapitalController {
     }
 
     @GET
-    public RestResponse<List<CapitalRecordResource>> getAllCapitalRecord(){
-        return RestResponse.ok(capitalMapper.toRecordResource(compoundInterestService.getAllCapitalRecord()));
+    public RestResponse<List<CapitalRecordResource>> getCapitalRecord(@RestQuery Integer page,
+                                                                      @RestQuery Integer entries){
+        return RestResponse.ok(capitalMapper.toRecordResource(compoundInterestService.getCapitalRecord(page, entries)));
     }
 
 }

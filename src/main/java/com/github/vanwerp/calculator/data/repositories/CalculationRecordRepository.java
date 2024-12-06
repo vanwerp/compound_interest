@@ -25,8 +25,8 @@ public class CalculationRecordRepository implements PanacheRepository<CapitalRec
     }
 
     @Transactional
-    public List<CapitalRecord> getAllCapitalRecord(){
-        return mapper.toRecordList(listAll());
+    public List<CapitalRecord> getCapitalRecord(Integer page, Integer entries){
+        return mapper.toRecordList(findAll().page(page,entries).list());
     }
 
 }

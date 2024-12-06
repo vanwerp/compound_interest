@@ -20,8 +20,8 @@ public class CompoundInterestServiceImpl implements CompoundInterestService{
     CalculationRecordRepository calculationRecordRepository;
 
     @Override
-    public List<CapitalRecord> getAllCapitalRecord(){
-        return calculationRecordRepository.getAllCapitalRecord();
+    public List<CapitalRecord> getCapitalRecord(Integer page, Integer entries){
+        return calculationRecordRepository.getCapitalRecord(page, entries);
     }
 
     @Override

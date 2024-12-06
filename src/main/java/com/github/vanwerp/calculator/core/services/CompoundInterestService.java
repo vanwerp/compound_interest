@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface CompoundInterestService {
-    List<CapitalRecord> getAllCapitalRecord();
+    List<CapitalRecord> getCapitalRecord(Integer page, Integer entries);
 
     Capital getCompoundInterest(Integer time,
                                 BigDecimal initialCapital,
