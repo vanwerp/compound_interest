@@ -1,9 +1,6 @@
 package com.github.vanwerp.calculator.core.services;
 
-import com.github.vanwerp.calculator.core.models.Capital;
-import com.github.vanwerp.calculator.core.models.CapitalRecord;
-import com.github.vanwerp.calculator.core.models.CompoundingPeriod;
-import com.github.vanwerp.calculator.core.models.YearCapital;
+import com.github.vanwerp.calculator.core.models.*;
 import com.github.vanwerp.calculator.data.repositories.CalculationRecordRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -25,31 +22,30 @@ public class CompoundInterestServiceImpl implements CompoundInterestService{
     }
 
     @Override
-    public Capital getCompoundInterest(Integer years, BigDecimal initialCapital, BigDecimal revenue,
-                                       CompoundingPeriod compoundingPeriod){
+    public Capital getCompoundInterest(CapitalCalculationVariables capitalCalculationVariables){
 
         List<YearCapital> yearCapitalResources = new ArrayList<>();
-        BigDecimal finalCapital = initialCapital;
+        BigDecimal finalCapital = capitalCalculationVariables.getInitialCapital();
 
-        for (int i = 1; i <= years ; i++) {
-            BigDecimal finalPeriodCapital = computeCompoundInterest(i, compoundingPeriod,initialCapital,revenue);
-            BigDecimal periodInterest = finalPeriodCapital.subtract(initialCapital);
+        for (int i = 1; i <= capitalCalculationVariables.getTime() ; i++) {
+            BigDecimal finalPeriodCapital = computeCompoundInterest(i, capitalCalculationVariables.getCompoundingPeriod(), capitalCalculationVariables.getInitialCapital(), capitalCalculationVariables.getRevenue());
+            BigDecimal periodInterest = finalPeriodCapital.subtract(capitalCalculationVariables.getInitialCapital());
             yearCapitalResources.add(new YearCapital(i,periodInterest,finalPeriodCapital));
             finalCapital = finalPeriodCapital;
         }
 
         calculationRecordRepository.saveCalculationRecord(
                 new CapitalRecord(
-                        initialCapital,
+                        capitalCalculationVariables.getInitialCapital(),
                         finalCapital,
-                        compoundingPeriod.getPeriod(),
-                        years,
-                        revenue));
+                        capitalCalculationVariables.getCompoundingPeriod().getPeriod(),
+                        capitalCalculationVariables.getTime(),
+                        capitalCalculationVariables.getRevenue()));
 
         return Capital.builder()
                 .finalCapital(finalCapital)
-                .interest(finalCapital.subtract(initialCapital))
-                .initialCapital(initialCapital)
+                .interest(finalCapital.subtract(capitalCalculationVariables.getInitialCapital()))
+                .initialCapital(capitalCalculationVariables.getInitialCapital())
                 .yearCapitalList(yearCapitalResources)
                 .build();
     }
