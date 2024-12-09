@@ -1,7 +1,7 @@
 package com.github.vanwerp.calculator.data.repositories;
 
 import com.github.vanwerp.calculator.core.models.CapitalRecord;
-import com.github.vanwerp.calculator.data.CapitalEntityMapper;
+import com.github.vanwerp.calculator.data.mappers.CapitalEntityMapper;
 import com.github.vanwerp.calculator.data.entities.CapitalRecordEntity;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;

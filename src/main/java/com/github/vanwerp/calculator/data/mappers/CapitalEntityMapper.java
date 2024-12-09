@@ -1,4 +1,4 @@
-package com.github.vanwerp.calculator.data;
+package com.github.vanwerp.calculator.data.mappers;
 
 import com.github.vanwerp.calculator.core.models.CapitalRecord;
 import com.github.vanwerp.calculator.data.entities.CapitalRecordEntity;
