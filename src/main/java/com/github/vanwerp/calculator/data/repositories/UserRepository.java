@@ -7,7 +7,9 @@ import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @ApplicationScoped
 public class UserRepository implements PanacheRepository<UserEntity> {
 
@@ -16,8 +18,9 @@ public class UserRepository implements PanacheRepository<UserEntity> {
 
     @Transactional
     public User saveUser(User user) {
-        persist(mapper.toEntity(user));
-        return user;
+        UserEntity entity = mapper.toEntity(user);
+        persist(entity);
+        return mapper.toModel(entity);
     }
 
     public User findUserByUsername(String username){
